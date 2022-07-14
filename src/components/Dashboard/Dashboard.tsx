@@ -57,12 +57,11 @@ export const Dashboard = (props: DashboardPropsType) => {
         }).catch(error => alert('Ошибка запроса'))
             .then(result => setDashboard(result?.data.dashboard))
     }, [])
-    console.log('dash', dashboard)
     return (
         <div style={{display: "flex", marginTop: '100px'}}>
-            <DonutChartBlock donutBoard={dashboard['scenarios']} title={'scenarios'}/>
-            <DonutChartBlock donutBoard={dashboard['dialogs']} title={'dialogs'}/>
-            <DonutChartBlock donutBoard={dashboard['lists']} title={'lists'}/>
+            <DonutChartBlock donutBoard={dashboard['scenarios']}/>
+            <DonutChartBlock donutBoard={dashboard['dialogs']}/>
+            <DonutChartBlock donutBoard={dashboard['lists']}/>
         </div>
     );
 };
