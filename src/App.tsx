@@ -1,38 +1,20 @@
 import React from 'react';
-import {Route, Routes,} from "react-router-dom";
-import './App.css';
-import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/client";
-import {setContext} from "@apollo/client/link/context";
-import {LoginPage} from "./components/LoginPage/LoginPage";
-import {Dashboard} from "./components/Dashboard/Dashboard";
+import {Navigate, Route, Routes,} from "react-router-dom";
+import {ApolloProvider} from "@apollo/client";
+import {Dashboard, LoginPage} from "./components";
+import {client} from "./apollo/apollo";
 
-const httpLink = new HttpLink({
-    uri: 'https://gravitel-graphql-backend.herokuapp.com/graphql',
-});
-const authLink = setContext((_, {headers}) => {
-    const token = localStorage.getItem('token');
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : "",
-        }
-    }
-});
-const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-});
+// притиер, функции из jsx, +деструктуризация+, нейминг пропсов, вынести запрос, вынести создание аполо клиента
 
-function App() {
 
+export const App = () => {
     return (
         <ApolloProvider client={client}>
             <Routes>
-                <Route path='/login' element={<LoginPage client={client}/>}/>
-                <Route path='/dashboard' element={<Dashboard client={client}/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/' element={<Navigate to={'/dashboard'}/>}/>
             </Routes>
         </ApolloProvider>
     );
 }
-
-export default App;

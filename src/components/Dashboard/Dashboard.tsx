@@ -1,67 +1,39 @@
 import React, {useEffect, useState} from 'react';
-import {ApolloClient, gql, NormalizedCacheObject} from "@apollo/client";
-import {DonutChartBlock} from "./DonutChart/DonutChartBlock";
+import {ApolloClient, gql, NormalizedCacheObject, useLazyQuery, useMutation, useQuery} from "@apollo/client";
+import {DonutChart} from "../../components";
+import {useNavigate} from "react-router-dom";
+import {GET_DASHBOARD} from "../../api/requests";
 
-export type DashboardType = {
-    scenarios: {
-        active: string
-        inactive: string
-        completed: string
-    }
-    lists: {
-        active: string
-        inactive: string
-        completed: string
-    }
-    dialogs: {
-        active: string
-        inactive: string
-        completed: string
-    }
+type DashboardItemsType = {
+    scenarios: ItemsConditionType
+    lists: ItemsConditionType
+    dialogs: ItemsConditionType
+}
+export type ItemsConditionType = {
+    active: string
+    inactive: string
+    completed: string
 }
 
-type DashboardPropsType = {
-    client: ApolloClient<NormalizedCacheObject>
-}
+export const Dashboard = () => {
+    const navigate = useNavigate()
 
-export const Dashboard = (props: DashboardPropsType) => {
+    const {data} = useQuery<{dashboard: DashboardItemsType}>(GET_DASHBOARD)
 
-    const [dashboard, setDashboard] = useState<DashboardType>({
-        scenarios: {active: '', inactive: '', completed: ''},
-        dialogs: {active: '', inactive: '', completed: ''},
-        lists: {active: '', inactive: '', completed: ''}
-    })
+    const logoutHandler = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
-    useEffect(() => {
-        props.client.query({
-            query: gql`
-            query GetDashboard {
-               dashboard {
-                scenarios {
-                  active
-                  inactive
-                  completed
-                 }
-                lists {
-                   active
-                  inactive
-                  completed
-                 }
-                dialogs {
-                   active
-                  inactive
-                  completed
-                 }
-               }
-             }`
-        }).catch(error => alert('Ошибка запроса'))
-            .then(result => setDashboard(result?.data.dashboard))
-    }, [])
     return (
         <div style={{display: "flex", marginTop: '100px'}}>
-            <DonutChartBlock donutBoard={dashboard['scenarios']}/>
-            <DonutChartBlock donutBoard={dashboard['dialogs']}/>
-            <DonutChartBlock donutBoard={dashboard['lists']}/>
+            {data && <>
+                <DonutChart donutBoard={data.dashboard['scenarios']}/>
+                <DonutChart donutBoard={data.dashboard['dialogs']}/>
+                <DonutChart donutBoard={data.dashboard['lists']}/>
+                <button onClick={logoutHandler}>Logout
+                </button>
+            </>}
         </div>
     );
 };
