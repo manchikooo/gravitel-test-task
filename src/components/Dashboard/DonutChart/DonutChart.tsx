@@ -1,9 +1,10 @@
 import React, {useState, MouseEvent} from 'react';
 import {PieChart} from "react-minimal-pie-chart";
-import styles from './DonutChart.module.css'
 import {ItemsConditionType} from "../Dashboard";
+import {LegendsBlock, PieValueBlock, DonutChartBlock, PieValueTexted, DonutChartWrapper} from "./DonutChartStyles";
+import {Legend} from "./Legend/Legend";
 
-type PieSectorType = {
+export type PieSectorType = {
     title: string
     value: number
     color: string
@@ -18,51 +19,68 @@ export const DonutChart = ({donutBoard}: DonutChartPropsType) => {
     const [currentPieIndex, setCurrentPieIndex] = useState<number | null>(null)
 
     const pieData: PieDataType = [
-        {title: 'Активных', value: Number(donutBoard.active), color: '#E38627'},
-        {title: 'Неактивных', value: Number(donutBoard.inactive), color: '#C13C37'},
-        {title: 'Завершенных', value: Number(donutBoard.completed), color: '#6A2135'},
+        {title: 'Активных', value: Number(donutBoard.active), color: '#F8A853'},
+        {title: 'Неактивных', value: Number(donutBoard.inactive), color: '#bfbfbf'},
+        {title: 'Завершенных', value: Number(donutBoard.completed), color: '#FCCE82'},
+        {title: 'Всего', value: 0, color: '#EE614C'},
     ]
+
     const totalValue = pieData.reduce((acc, pie) => acc + pie.value, 0)
 
     const onLegendHandler = (e: MouseEvent<HTMLSpanElement>) => {
         setCurrentPieIndex(Number(e.currentTarget.dataset.index))
     }
-    const labelHandler = () => currentPieIndex === 0 || currentPieIndex
-        ? pieData[currentPieIndex].value
-        : totalValue
 
-    const onPieSectorHandler = (e: MouseEvent, segmentIndex: number) => setCurrentPieIndex(segmentIndex)
+    const onPieSectorHandler = (e: MouseEvent, segmentIndex: number) => {
+        setCurrentPieIndex(segmentIndex)
+    }
 
     const segmentStyleHandler = (segmentIndex: number) => {
-        if (segmentIndex === currentPieIndex)
+        if (segmentIndex === currentPieIndex || currentPieIndex === 3)
             return {strokeWidth: 10, cursor: 'pointer'};
     }
 
     return (
-        <div>
-            <PieChart
-                className={styles.pieChart}
-                data={pieData}
-                lineWidth={15}
-                totalValue={totalValue}
-                label={labelHandler}
-                labelPosition={0}
-                onMouseOver={onPieSectorHandler}
-                onMouseOut={(e) => setCurrentPieIndex(null)}
-                segmentsStyle={segmentStyleHandler}
-            />
-            <div>
+        <DonutChartWrapper>
+            <DonutChartBlock>
+                <PieChart
+                    data={pieData}
+                    lineWidth={15}
+                    rounded
+                    onMouseOver={onPieSectorHandler}
+                    onMouseOut={(e) => setCurrentPieIndex(null)}
+                    segmentsStyle={segmentStyleHandler}
+                />
+                <PieValueBlock>
+                    {currentPieIndex === 0 || currentPieIndex
+                        ? <>
+                            <PieValueTexted
+                                color={pieData[currentPieIndex].color}>{pieData[currentPieIndex].title}</PieValueTexted>
+                            <PieValueTexted>{pieData[currentPieIndex].title === 'Всего'
+                                ? totalValue
+                                : pieData[currentPieIndex].value}</PieValueTexted>
+                        </>
+                        : <>
+                            <PieValueTexted>Всего</PieValueTexted>
+                            <PieValueTexted>{totalValue}</PieValueTexted>
+                        </>}
+                </PieValueBlock>
+            </DonutChartBlock>
+            <LegendsBlock>
                 {pieData.map((legend, i) =>
-                    <div
+                    <Legend
+                        legend={legend}
+                        pieIndex={i}
+                        currentIndex={currentPieIndex}
                         key={legend.title}
-                        data-index={String(i)}
-                        onMouseOver={onLegendHandler}
-                        onMouseOut={(e) => setCurrentPieIndex(null)}>
-                        {legend.title}: {legend.value}
-                    </div>
+                        onMouseOverHandler={onLegendHandler}
+                        onMouseOutHandler={setCurrentPieIndex}
+                        totalValue={totalValue}
+                    >
+                    </Legend>
                 )}
-            </div>
-        </div>
+            </LegendsBlock>
+        </DonutChartWrapper>
     );
 };
 
