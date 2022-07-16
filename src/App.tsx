@@ -10,7 +10,7 @@ export const App = () => {
             <Routes>
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/dashboard' element={<Dashboard/>}/>
-                <Route path='/' element={<Navigate to={'/dashboard'}/>}/>
+                <Route path='/' element={<Navigate to={'/login'}/>}/>
             </Routes>
         </ApolloProvider>
     );

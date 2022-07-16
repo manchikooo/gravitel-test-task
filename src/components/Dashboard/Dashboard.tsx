@@ -33,8 +33,8 @@ export const Dashboard = () => {
                 <DonutChart donutBoard={data.dashboard['dialogs']}/>
                 <DonutChart donutBoard={data.dashboard['lists']}/>
             </>}
-            {/*<button onClick={logoutHandler}>Logout*/}
-            {/*</button>*/}
+            <button onClick={logoutHandler}>Logout
+            </button>
         </DashboardBlock>
     );
 };
