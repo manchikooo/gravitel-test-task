@@ -2,7 +2,7 @@
   "name": "gravitel-test-task",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://manchikooo.github.io/gravitel-test-task",
+  "homepage": "https://manchikooo.github.io/gravitel-test-task/",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@testing-library/jest-dom": "^5.14.1",
