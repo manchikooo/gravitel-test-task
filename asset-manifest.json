@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/gravitel-test-task/static/css/main.12907369.css",
+    "main.js": "/gravitel-test-task/static/js/main.8e061e64.js",
+    "static/js/787.32140883.chunk.js": "/gravitel-test-task/static/js/787.32140883.chunk.js",
+    "index.html": "/gravitel-test-task/index.html",
+    "main.12907369.css.map": "/gravitel-test-task/static/css/main.12907369.css.map",
+    "main.8e061e64.js.map": "/gravitel-test-task/static/js/main.8e061e64.js.map",
+    "787.32140883.chunk.js.map": "/gravitel-test-task/static/js/787.32140883.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.12907369.css",
+    "static/js/main.8e061e64.js"
+  ]
+}
