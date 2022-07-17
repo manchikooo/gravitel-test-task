@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gravitel-test-task/static/css/main.12907369.css",
-    "main.js": "/gravitel-test-task/static/js/main.80a245e0.js",
+    "main.css": "/gravitel-test-task/static/css/main.e6c13ad2.css",
+    "main.js": "/gravitel-test-task/static/js/main.1f9278aa.js",
     "static/js/787.32140883.chunk.js": "/gravitel-test-task/static/js/787.32140883.chunk.js",
     "index.html": "/gravitel-test-task/index.html",
-    "main.12907369.css.map": "/gravitel-test-task/static/css/main.12907369.css.map",
-    "main.80a245e0.js.map": "/gravitel-test-task/static/js/main.80a245e0.js.map",
+    "main.e6c13ad2.css.map": "/gravitel-test-task/static/css/main.e6c13ad2.css.map",
+    "main.1f9278aa.js.map": "/gravitel-test-task/static/js/main.1f9278aa.js.map",
     "787.32140883.chunk.js.map": "/gravitel-test-task/static/js/787.32140883.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.12907369.css",
-    "static/js/main.80a245e0.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.1f9278aa.js"
   ]
 }
