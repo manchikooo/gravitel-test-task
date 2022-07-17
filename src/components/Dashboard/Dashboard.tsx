@@ -3,7 +3,8 @@ import {useQuery} from "@apollo/client";
 import {DonutChart} from "../../components";
 import {useNavigate} from "react-router-dom";
 import {GET_DASHBOARD} from "../../api/requests";
-import {Button, DashboardBlock, DashboardWrapper} from "./DashboardStyles";
+import {DashboardBlock, DashboardWrapper} from "./DashboardStyles";
+import Button from "../Button/Button";
 
 type DashboardItemsType = {
     scenarios: ItemsConditionType
@@ -25,11 +26,13 @@ export const Dashboard = () => {
         localStorage.removeItem('token')
         navigate('/login')
     }
+
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             navigate('/login')
         }
     }, [])
+
     return (
         <DashboardWrapper>
             <DashboardBlock>
@@ -39,8 +42,9 @@ export const Dashboard = () => {
                     <DonutChart donutBoard={data.dashboard['lists']}/>
                 </>}
             </DashboardBlock>
-            <Button onClick={logoutHandler}>Logout
-            </Button>
+            <Button
+                title='Выйти'
+                onClickHandler={logoutHandler}/>
         </DashboardWrapper>
     );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Navigate, Route, Routes,} from "react-router-dom";
 import {ApolloProvider} from "@apollo/client";
-import {Dashboard, LoginPage} from "./components";
-import {client} from "./apollo/apollo";
+import {Dashboard, LoginPage} from "../index";
+import {client} from "../../apollo/apollo";
 
-export const App = () => {
+export const RoutesComponent = () => {
     return (
         <ApolloProvider client={client}>
             <Routes>

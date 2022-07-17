@@ -16,6 +16,7 @@ type DonutChartPropsType = {
 }
 
 export const DonutChart = ({donutBoard}: DonutChartPropsType) => {
+
     const [currentPieIndex, setCurrentPieIndex] = useState<number | null>(null)
 
     const pieData: PieDataType = [
@@ -54,11 +55,14 @@ export const DonutChart = ({donutBoard}: DonutChartPropsType) => {
                 <PieValueBlock>
                     {currentPieIndex === 0 || currentPieIndex
                         ? <>
-                            <PieValueTexted
-                                color={pieData[currentPieIndex].color}>{pieData[currentPieIndex].title}</PieValueTexted>
-                            <PieValueTexted>{pieData[currentPieIndex].title === 'Всего'
-                                ? totalValue
-                                : pieData[currentPieIndex].value}</PieValueTexted>
+                            <PieValueTexted color={pieData[currentPieIndex].color}>
+                                {pieData[currentPieIndex].title}
+                            </PieValueTexted>
+                            <PieValueTexted>
+                                {pieData[currentPieIndex].title === 'Всего'
+                                    ? totalValue
+                                    : pieData[currentPieIndex].value}
+                            </PieValueTexted>
                         </>
                         : <>
                             <PieValueTexted>Всего</PieValueTexted>
