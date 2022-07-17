@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ButtonStyled = styled.button`
+export const ButtonStyles = styled.button`
   position: ${({title}) => title === 'Выйти' ? 'absolute' : 'relative'};
   top: ${({title}) => title === 'Выйти' && '3%'};
   right: ${({title}) => title === 'Выйти' && '3%'};

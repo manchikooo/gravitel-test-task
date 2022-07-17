@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonStyled} from './ButtonStyled';
+import {ButtonStyles} from './ButtonStyles';
 
 type ButtonPropsType = {
     title: string
@@ -9,12 +9,12 @@ type ButtonPropsType = {
 
 const Button = ({title, onClickHandler, disabled}: ButtonPropsType) => {
     return (
-        <ButtonStyled
+        <ButtonStyles
             title={title}
             onClick={onClickHandler}
             disabled={disabled}>
             {title}
-        </ButtonStyled>
+        </ButtonStyles>
     );
 };
 

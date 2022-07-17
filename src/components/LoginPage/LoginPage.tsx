@@ -3,8 +3,9 @@ import {useMutation} from "@apollo/client";
 import {useNavigate} from "react-router-dom";
 import {LOGIN} from "../../api/requests";
 import {GraphQLError} from "graphql";
-import {ErrorBlock, Header, Input, LoginBlock} from "./LoginPageStyled";
+import {ErrorBlock, Header, Input, LoginBlock} from "./LoginPageStyles";
 import Button from "../Button/Button";
+import {LoaderLine} from "../LoaderLine/LoaderLine";
 
 type UserLoginDataType = {
     username: string
@@ -63,28 +64,31 @@ export const LoginPage = () => {
     }, [data])
 
     return (
-        <LoginBlock>
-            <Header>Вход</Header>
-            <Input
-                value={userLoginData.username}
-                onChange={e => userDataHandler(e)}
-                onKeyPress={(e) => loginOnEnterPress(e)}
-                placeholder={'Логин'}
-                name='username'/>
-            <Input
-                value={userLoginData.password}
-                onChange={e => userDataHandler(e)}
-                onKeyPress={(e) => loginOnEnterPress(e)}
-                placeholder={'Пароль'}
-                type='password'
-                name='password'/>
-            <ErrorBlock>
-                {error}
-            </ErrorBlock>
-            <Button
-                title='Войти'
-                onClickHandler={loginHandler}
-                disabled={disableCondition}/>
-        </LoginBlock>
+        <>
+            {loading && <LoaderLine/>}
+            <LoginBlock>
+                <Header>Вход</Header>
+                <Input
+                    value={userLoginData.username}
+                    onChange={e => userDataHandler(e)}
+                    onKeyPress={(e) => loginOnEnterPress(e)}
+                    placeholder={'Логин'}
+                    name='username'/>
+                <Input
+                    value={userLoginData.password}
+                    onChange={e => userDataHandler(e)}
+                    onKeyPress={(e) => loginOnEnterPress(e)}
+                    placeholder={'Пароль'}
+                    type='password'
+                    name='password'/>
+                <ErrorBlock>
+                    {error}
+                </ErrorBlock>
+                <Button
+                    title='Войти'
+                    onClickHandler={loginHandler}
+                    disabled={disableCondition}/>
+            </LoginBlock>
+        </>
     );
 };
