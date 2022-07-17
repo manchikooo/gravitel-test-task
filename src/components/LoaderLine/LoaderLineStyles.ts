@@ -5,7 +5,7 @@ export const LoaderBlock = styled.div`
   background-color: #F9C76A;
   overflow: hidden;
   width: 100%;
-  height: 3px;
+  height: 5px;
   top: 0;
   left: 0;
   display: flex;
@@ -16,7 +16,7 @@ export const LoaderBlock = styled.div`
 `;
 
 export const LoaderElement = styled.div`
-  height: 3px;
+  height: 5px;
   width: 100%;
   background: #A88135;
 
@@ -24,7 +24,7 @@ export const LoaderElement = styled.div`
     content: '';
     display: block;
     background-color: #F9C76A;
-    height: 3px;
+    height: 5px;
     width: 0;
     animation: getWidth 0.7s ease-in infinite;
   }

@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {GET_DASHBOARD} from "../../api/requests";
 import {DashboardBlock, DashboardWrapper} from "./DashboardStyles";
 import Button from "../Button/Button";
+import {LoaderLine} from "../LoaderLine/LoaderLine";
 
 type DashboardItemsType = {
     scenarios: ItemsConditionType
@@ -20,7 +21,7 @@ export type ItemsConditionType = {
 export const Dashboard = () => {
     const navigate = useNavigate()
 
-    const {data} = useQuery<{ dashboard: DashboardItemsType }>(GET_DASHBOARD)
+    const {data, loading} = useQuery<{ dashboard: DashboardItemsType }>(GET_DASHBOARD)
 
     const logoutHandler = () => {
         localStorage.removeItem('token')
@@ -33,14 +34,22 @@ export const Dashboard = () => {
         }
     }, [])
 
+    const mappedDonutCharts = data &&
+        Object.keys(data.dashboard)
+            .filter((el) => el !== '__typename')
+            .map(el => {
+                return <DonutChart
+                    key={el}
+                    donutName={el}
+                    donutBoard={data.dashboard[el as keyof DashboardItemsType]}
+                />
+            })
+
     return (
         <DashboardWrapper>
+            {loading && <LoaderLine/>}
             <DashboardBlock>
-                {data && <>
-                    <DonutChart donutBoard={data.dashboard['scenarios']}/>
-                    <DonutChart donutBoard={data.dashboard['dialogs']}/>
-                    <DonutChart donutBoard={data.dashboard['lists']}/>
-                </>}
+                {mappedDonutCharts}
             </DashboardBlock>
             <Button
                 title='Выйти'

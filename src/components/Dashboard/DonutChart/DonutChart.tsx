@@ -3,6 +3,7 @@ import {PieChart} from "react-minimal-pie-chart";
 import {ItemsConditionType} from "../Dashboard";
 import {LegendsBlock, PieValueBlock, DonutChartBlock, PieValueTexted, DonutChartWrapper} from "./DonutChartStyles";
 import {Legend} from "./Legend/Legend";
+import {DonutName} from "./DonutName/DonutName";
 
 export type PieSectorType = {
     title: string
@@ -12,10 +13,11 @@ export type PieSectorType = {
 type PieDataType = Array<PieSectorType>
 
 type DonutChartPropsType = {
+    donutName: string
     donutBoard: ItemsConditionType
 }
 
-export const DonutChart = ({donutBoard}: DonutChartPropsType) => {
+export const DonutChart = ({donutName, donutBoard}: DonutChartPropsType) => {
 
     const [currentPieIndex, setCurrentPieIndex] = useState<number | null>(null)
 
@@ -53,6 +55,7 @@ export const DonutChart = ({donutBoard}: DonutChartPropsType) => {
                     segmentsStyle={segmentStyleHandler}
                 />
                 <PieValueBlock>
+                    <DonutName donutName={donutName}/>
                     {currentPieIndex === 0 || currentPieIndex
                         ? <>
                             <PieValueTexted color={pieData[currentPieIndex].color}>
